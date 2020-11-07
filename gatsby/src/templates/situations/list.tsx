@@ -1,6 +1,6 @@
 import React from 'react';
 import { graphql } from 'gatsby';
-import { IQuery } from 'graphql-types';
+import { IQuery, ISitePageContext } from 'graphql-types';
 import Container from '@/components/container';
 
 import { SEO as Seo } from 'gatsby-plugin-seo';
@@ -12,12 +12,13 @@ import I18n from '@/components/i18n';
 
 interface IProps {
   data: IQuery;
+  pageContext: ISitePageContext;
 }
 
-const Home: React.FC<IProps> = ({ data }) => {
+const Home: React.FC<IProps> = ({ data, pageContext }) => {
   const { area } = data;
   return (
-    <Layout>
+    <Layout pageContext={pageContext}>
       <Seo
         title={area.name}
         description={I18n('situations_overview_meta')}

@@ -15,22 +15,22 @@ interface IProps {
   pageContext: ISitePageContext;
 }
 
-const Measures: React.FC<IProps> = ({ data, pageContext: { langCode } }) => {
+const Measures: React.FC<IProps> = ({ data, pageContext }) => {
   const {
     allTaxonomyTermMeasureType: { nodes },
   } = data;
 
-  const collator = new Intl.Collator([langCode]);
+  const collator = new Intl.Collator([pageContext.langCode]);
   nodes.sort((a, b) => collator.compare(a.name, b.name));
 
   // todo add meta description
   return (
-    <Layout>
+    <Layout pageContext={pageContext}>
       <Seo
         title={I18n('current_measures')}
         description={I18n('current_measures_overview_meta')}
         pagePath={I18n('slug_measures')}
-        htmlLanguage={langCode}
+        htmlLanguage={pageContext.langCode}
         schema={`{
           "@type": "WebSite",
           "@id": "https://covid.gov.cz/#website",
